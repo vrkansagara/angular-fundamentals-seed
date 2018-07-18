@@ -1,39 +1,96 @@
 <div class="container">
-    <div class="row">
-        <h4>{{title}}! </h4>
+  <div class="row columns">
+    <div class="one column">
+      <img [src]="logo" alt="">
     </div>
+    <div class="eleven column">
+      <h4 [innerHTML]='appName'>This is application name</h4>
+    </div>
+  </div>
+  <div class="row">
+    <button (click)='handleClick(name.value)'> Get value </button>
+    <h4>Hello {{name}} ! </h4>
+    <input  type="text" placeholder="Property binding" #name >
+  </div>
+
+  <div class="row">
+    <div class="three columns">
+      <input type="text"
+      [value]='search'
+      (input)='handleChange($event.target.value)'>
+    </div>
+    <div class="nine columns">
+      <div *ngIf="search.length > 2">
+        Searching for ......{{search}}
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <template [ngIf]="search.length > 2">
+      <div class="nine columns">
+        Searching for ......{{search}}
+      </div>
+    </template>
+  </div>
+
+  <div class="row">
+    <h4>Passenger List</h4>
+    <ul>
+      <li *ngFor="let passenger of passengers; let i =  index;">
+        <span
+        class="status"
+        [class.checked-in]="passenger.checkedIn"
+        [ngClass]="{
+          'checked-in' : passenger.checkedIn,
+          'checked-out' : !passenger.checkedIn
+        }"
+        ></span>
+        {{i}} : {{passenger.name}} -> {{passenger.checkedIn}} = > {{passenger.checkedInDate}}
+        <p>{{passenger | json }}</p>
+        <p>
+          Check In: {{passenger.checkedIn ? (passenger.checkedIn | date : 'y') : 'Not checkedin'}}
+        </p>
+
+        <p>
+          Children :---- {{ passenger.children?.length || 0 }}
+        </p>
+      </li>
+    </ul>
+  </div>
 </div>
+
+
 
 
 <div class="container">
-    <div class="row">
-        <!-- The above form looks like this -->
-<form>
-        <div class="row">
-          <div class="six columns">
-            <label for="exampleEmailInput">Your email</label>
-            <input class="u-full-width" type="email" placeholder="test@mailbox.com" id="exampleEmailInput">
-          </div>
-          <div class="six columns">
-            <label for="exampleRecipientInput">Reason for contacting</label>
-            <select class="u-full-width" id="exampleRecipientInput">
-              <option value="Option 1">Questions</option>
-              <option value="Option 2">Admiration</option>
-              <option value="Option 3">Can I get your number?</option>
-            </select>
-          </div>
+  <div class="row">
+    <!-- The above form looks like this -->
+    <form>
+      <div class="row">
+        <div class="six columns">
+          <label for="exampleEmailInput">Your email</label>
+          <input class="u-full-width" type="email" placeholder="test@mailbox.com" id="exampleEmailInput">
         </div>
-        <label for="exampleMessage">Message</label>
-        <textarea class="u-full-width" placeholder="Hi Dave …" id="exampleMessage"></textarea>
-        <label class="example-send-yourself-copy">
-          <input type="checkbox">
-          <span class="label-body">Send a copy to yourself</span>
-        </label>
-        <input class="button-primary" type="submit" value="Submit">
-      </form>
-      
-      <!-- Always wrap checkbox and radio inputs in a label and use a <span class="label-body"> inside of it -->
-      
+        <div class="six columns">
+          <label for="exampleRecipientInput">Reason for contacting</label>
+          <select class="u-full-width" id="exampleRecipientInput">
+            <option value="Option 1">Questions</option>
+            <option value="Option 2">Admiration</option>
+            <option value="Option 3">Can I get your number?</option>
+          </select>
+        </div>
+      </div>
+      <label for="exampleMessage">Message</label>
+      <textarea class="u-full-width" placeholder="Hi Dave …" id="exampleMessage"></textarea>
+      <label class="example-send-yourself-copy">
+        <input type="checkbox">
+        <span class="label-body">Send a copy to yourself</span>
+      </label>
+      <input class="button-primary" type="submit" value="Submit">
+    </form>
+
+    <!-- Always wrap checkbox and radio inputs in a label and use a <span class="label-body"> inside of it -->
+
       <!-- Note: The class .u-full-width is just a utility class shorthand for width: 100% -->
     </div>
-</div>
+  </div>
